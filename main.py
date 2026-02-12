@@ -10,7 +10,7 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("YouTube Downloader & Converter")
+        self.title("Media Downloader & Converter v1.1.0")
         self.geometry("600x450")
         
         self.downloader = Downloader()
