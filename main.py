@@ -10,7 +10,7 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("Media Downloader & Converter v1.1.0")
+        self.title("Media Downloader & Converter v1.1.1")
         self.geometry("600x450")
         
         self.downloader = Downloader()
@@ -62,10 +62,10 @@ class App(ctk.CTk):
         self.tab_local = self.tabview.tab("Local")
         self.tab_local.grid_columnconfigure(0, weight=1)
 
-        self.local_label = ctk.CTkLabel(self.tab_local, text="Convert local Video to Audio")
+        self.local_label = ctk.CTkLabel(self.tab_local, text="Convert local Media (Video/Audio)")
         self.local_label.grid(row=0, column=0, padx=20, pady=10)
 
-        self.local_file_btn = ctk.CTkButton(self.tab_local, text="Select Video File", command=self.select_local_file)
+        self.local_file_btn = ctk.CTkButton(self.tab_local, text="Select Media File", command=self.select_local_file)
         self.local_file_btn.grid(row=1, column=0, padx=20, pady=10)
 
         self.format_label = ctk.CTkLabel(self.tab_local, text="Select Target Format:")
@@ -97,7 +97,12 @@ class App(ctk.CTk):
                 self.audio_path_btn.configure(text=f"Folder: {os.path.basename(folder)}")
 
     def select_local_file(self):
-        file = ctk.filedialog.askopenfilename(filetypes=[("Video files", "*.mp4 *.mkv *.avi *.mov *.wmv")])
+        file = ctk.filedialog.askopenfilename(filetypes=[
+            ("Media files", "*.mp4 *.mkv *.avi *.mov *.wmv *.mp3 *.wav *.flac *.aac *.m4a *.ogg"),
+            ("Video files", "*.mp4 *.mkv *.avi *.mov *.wmv"),
+            ("Audio files", "*.mp3 *.wav *.flac *.aac *.m4a *.ogg"),
+            ("All files", "*.*")
+        ])
         if file:
             self.local_file_path = file
             self.local_file_btn.configure(text=f"File: {os.path.basename(file)}")
@@ -165,7 +170,7 @@ class App(ctk.CTk):
             self.status_label.configure(text=status)
 
         try:
-            success, msg = self.downloader.convert_local_video(input_path, target_format=target_format, progress_callback=update_progress)
+            success, msg = self.downloader.convert_local_media(input_path, target_format=target_format, progress_callback=update_progress)
             if success:
                 self.status_label.configure(text=f"Success: {msg}", text_color="green")
             else:

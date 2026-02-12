@@ -96,8 +96,8 @@ class Downloader:
             if callback:
                 callback(1.0, "Processing...")
 
-    def convert_local_video(self, input_path, target_format="mp3", progress_callback=None, output_path=None):
-        """Converts a local video file to various audio formats using FFmpeg."""
+    def convert_local_media(self, input_path, target_format="mp3", progress_callback=None, output_path=None):
+        """Converts local video or audio files to various audio formats using FFmpeg."""
         if not output_path:
             output_path = os.path.splitext(input_path)[0] + f".{target_format}"
         
